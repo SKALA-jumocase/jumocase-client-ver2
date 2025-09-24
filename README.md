@@ -120,7 +120,7 @@ src/
 
 | 개발자        | GitHub                                     |
 | ------------- | ------------------------------------------ |
-| **Jamoooong** | [@Jamoooong](https://github.com/Jamoooong) |
+| **Jamoooong** | [@Jamooooong](https://github.com/Jamooooong) |
 | **kshin9**    | [@kshin9](https://github.com/kshin9)       |
 
 ## 🤝 기여하기
