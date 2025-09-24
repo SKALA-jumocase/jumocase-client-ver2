@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useUser } from '../../../contexts/UserContext';
+import { useState } from "react";
+import { useUser } from "../../../contexts/UserContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -10,7 +10,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
   const { setUserData } = useUser();
   const [formData, setFormData] = useState({
     age: 20,
-    sex: 'female' as 'male' | 'female',
+    sex: "female" as "male" | "female",
     isPrivacyAgreed: false,
   });
 
@@ -18,7 +18,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
     e.preventDefault();
 
     if (!formData.isPrivacyAgreed) {
-      alert('개인정보 활용동의는 필수입니다.');
+      alert("개인정보 활용동의는 필수입니다.");
       return;
     }
 
@@ -43,21 +43,21 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="mx-4 w-full max-w-md rounded-lg bg-white p-8 shadow-2xl">
         <div className="mb-6 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">기본 정보 입력</h2>
+          <h2 className="mb-2 text-2xl font-bold text-gray-900">기본 정보 입력</h2>
           <p className="text-gray-600">맞춤 추천을 위해 기본 정보를 입력해주세요</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* 나이대 선택 */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">나이대</label>
+            <label className="mb-2 block text-sm font-medium text-gray-700">나이대</label>
             <select
               value={formData.age}
-              onChange={(e) => setFormData(prev => ({ ...prev, age: Number(e.target.value) }))}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              onChange={(e) => setFormData((prev) => ({ ...prev, age: Number(e.target.value) }))}
+              className="w-full rounded-lg border border-gray-300 p-3 focus:border-transparent focus:ring-2 focus:ring-blue-500"
             >
               <option value={20}>20대</option>
               <option value={30}>30대</option>
@@ -68,16 +68,18 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
 
           {/* 성별 선택 */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">성별</label>
+            <label className="mb-3 block text-sm font-medium text-gray-700">성별</label>
             <div className="flex gap-4">
               <label className="flex items-center">
                 <input
                   type="radio"
                   name="sex"
                   value="male"
-                  checked={formData.sex === 'male'}
-                  onChange={(e) => setFormData(prev => ({ ...prev, sex: e.target.value as 'male' | 'female' }))}
-                  className="mr-2 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  checked={formData.sex === "male"}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, sex: e.target.value as "male" | "female" }))
+                  }
+                  className="mr-2 h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
                 <span className="text-gray-700">남성</span>
               </label>
@@ -86,9 +88,11 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
                   type="radio"
                   name="sex"
                   value="female"
-                  checked={formData.sex === 'female'}
-                  onChange={(e) => setFormData(prev => ({ ...prev, sex: e.target.value as 'male' | 'female' }))}
-                  className="mr-2 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  checked={formData.sex === "female"}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, sex: e.target.value as "male" | "female" }))
+                  }
+                  className="mr-2 h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
                 <span className="text-gray-700">여성</span>
               </label>
@@ -96,20 +100,25 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
           </div>
 
           {/* 개인정보 활용동의 */}
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="rounded-lg bg-gray-50 p-4">
             <div className="flex items-start space-x-3">
               <input
                 type="checkbox"
                 id="privacy-agreement"
                 checked={formData.isPrivacyAgreed}
-                onChange={(e) => setFormData(prev => ({ ...prev, isPrivacyAgreed: e.target.checked }))}
-                className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, isPrivacyAgreed: e.target.checked }))
+                }
+                className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               />
               <div className="text-sm">
-                <label htmlFor="privacy-agreement" className="font-medium text-gray-700 cursor-pointer">
+                <label
+                  htmlFor="privacy-agreement"
+                  className="cursor-pointer font-medium text-gray-700"
+                >
                   개인정보 수집 및 이용동의 (필수)
                 </label>
-                <div className="text-gray-600 mt-1 text-xs">
+                <div className="mt-1 text-xs text-gray-600">
                   <p>• 수집항목: 나이, 성별</p>
                   <p>• 이용목적: 맞춤형 전통주 추천 서비스 제공</p>
                   <p>• 보유기간: 서비스 이용 기간</p>
@@ -123,14 +132,14 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
             <button
               type="button"
               onClick={handleCancel}
-              className="flex-1 px-4 py-3 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 font-medium transition-colors"
+              className="flex-1 rounded-lg bg-gray-200 px-4 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-300"
             >
               취소
             </button>
             <button
               type="submit"
               disabled={!formData.isPrivacyAgreed}
-              className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 font-medium transition-colors"
+              className="flex-1 rounded-lg bg-blue-600 px-4 py-3 font-medium text-white transition-colors hover:bg-blue-700 disabled:bg-gray-400"
             >
               확인
             </button>

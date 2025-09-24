@@ -110,13 +110,10 @@ function RouteComponent() {
               >
                 <h3 className="mb-2 text-lg font-semibold text-gray-900">
                   {recommendation.liquorName}
-                  {recommendation.id}
                 </h3>
                 <p className="leading-relaxed text-gray-600">{recommendation.reason}</p>
                 {selectedLiquor?.id === recommendation.id && (
-                  <div className="mt-3 text-sm font-medium text-blue-600">
-                    ✓ 선택된 전통주 {recommendation.id}
-                  </div>
+                  <div className="mt-3 text-sm font-medium text-blue-600">✓ 선택된 전통주</div>
                 )}
               </div>
             ))}
