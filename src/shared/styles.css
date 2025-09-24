@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #89b0d1;
+  --color-onPrimary: #27334f;
+  --color-primaryContainer: #27334f;
+  --color-onPrimaryContainer: #ffffff;
+  --color-secondary: #f65329;
+  --color-onSecondary: #ffffff;
+  --color-surface: #f1f9ff;
+  --color-surfaceBright: #ffffff;
+  --color-onSurface: #222222;
+}
