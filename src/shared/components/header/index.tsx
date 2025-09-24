@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import Logo from "../../image/logo.png";
 
 export default function Header() {
   return (
@@ -6,7 +7,7 @@ export default function Header() {
       <div className="mx-auto max-w-6xl px-6 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3 transition-opacity hover:opacity-80">
-            <div className="text-3xl">담 아 카 세</div>
+            <img className="w-30" src={Logo} />
             <div>
               <h1 className="text-2xl font-bold tracking-wide"></h1>
               <p className="text-xs">한국의 멋과 맛을 담다</p>
