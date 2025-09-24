@@ -103,21 +103,6 @@ export default function Specialty() {
           추천 받기
         </button>
       </div>
-
-      {/* 추천 결과 */}
-      {results.length > 0 && (
-        <div className="mt-8 grid gap-4">
-          {results.map((item) => (
-            <div key={item.id} className="flex items-center gap-4 rounded-lg bg-white p-4 shadow">
-              <img src={item.image} alt={item.name} className="h-20 w-20 rounded object-cover" />
-              <div>
-                <h3 className="text-lg font-bold">{item.name}</h3>
-                <p className="text-sm text-gray-600">{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
