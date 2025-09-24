@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { getLiquorRecommendations } from '../../../services/api';
+import { useUser } from '../../../contexts/UserContext';
 import type { FormData } from '../../../types/api';
 
 export default function TraditionalDrink() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<FormData>({
-    age: 20,
-    sex: 'female',
+  const { userData, isUserDataComplete } = useUser();
+  const [formData, setFormData] = useState({
     drinkCount: 1,
     userQuery: ''
   });
@@ -16,14 +16,25 @@ export default function TraditionalDrink() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.userQuery.trim()) return;
+    if (!isUserDataComplete || !userData) {
+      alert('기본 정보를 먼저 입력해주세요.');
+      return;
+    }
+
+    const fullFormData: FormData = {
+      age: userData.age,
+      sex: userData.sex,
+      drinkCount: formData.drinkCount,
+      userQuery: formData.userQuery
+    };
 
     setIsLoading(true);
     try {
-      const recommendations = await getLiquorRecommendations(formData);
+      const recommendations = await getLiquorRecommendations(fullFormData);
 
       // Store recommendations in sessionStorage for result page
       sessionStorage.setItem('recommendations', JSON.stringify(recommendations));
-      sessionStorage.setItem('formData', JSON.stringify(formData));
+      sessionStorage.setItem('formData', JSON.stringify(fullFormData));
 
       navigate({ to: '/result' });
     } catch (error) {
@@ -41,52 +52,27 @@ export default function TraditionalDrink() {
         <p className="text-onPrimary/80">당신에게 맞는 전통주를 추천해드립니다</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* 나이대 선택 */}
-        <div>
-          <label className="block text-sm font-medium mb-2">나이대</label>
-          <select
-            value={formData.age}
-            onChange={(e) => setFormData(prev => ({ ...prev, age: Number(e.target.value) }))}
-            className="w-full p-3 bg-white text-black rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value={20}>20대</option>
-            <option value={30}>30대</option>
-            <option value={40}>40대</option>
-            <option value={50}>50대 이상</option>
-          </select>
+      {!isUserDataComplete ? (
+        <div className="text-center py-8">
+          <div className="text-4xl mb-4">🔒</div>
+          <h3 className="text-lg font-semibold mb-2">기본 정보가 필요합니다</h3>
+          <p className="text-onPrimary/80 mb-4">맞춤 추천을 위해 나이대와 성별 정보를 먼저 입력해주세요.</p>
+          <p className="text-sm text-onPrimary/60">메인페이지에서 "시작하기" 버튼을 눌러 기본정보를 입력해주세요.</p>
         </div>
-
-        {/* 성별 선택 */}
-        <div>
-          <label className="block text-sm font-medium mb-2">성별</label>
-          <div className="flex gap-4">
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="sex"
-                value="male"
-                checked={formData.sex === 'male'}
-                onChange={(e) => setFormData(prev => ({ ...prev, sex: e.target.value }))}
-                className="mr-2"
-              />
-              남성
-            </label>
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="sex"
-                value="female"
-                checked={formData.sex === 'female'}
-                onChange={(e) => setFormData(prev => ({ ...prev, sex: e.target.value }))}
-                className="mr-2"
-              />
-              여성
-            </label>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* 사용자 정보 표시 */}
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <h3 className="text-sm font-medium text-blue-800 mb-2">입력하신 기본 정보</h3>
+            <div className="text-sm text-blue-700">
+              <span className="mr-4">
+                나이: {userData?.age === 20 ? '20대' : userData?.age === 30 ? '30대' : userData?.age === 40 ? '40대' : '50대 이상'}
+              </span>
+              <span>성별: {userData?.sex === 'male' ? '남성' : '여성'}</span>
+            </div>
           </div>
-        </div>
 
-        {/* 음주빈도 선택 */}
+          {/* 음주빈도 선택 */}
         <div>
           <label className="block text-sm font-medium mb-2">음주빈도</label>
           <select
@@ -120,8 +106,9 @@ export default function TraditionalDrink() {
           className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
         >
           {isLoading ? '추천 받는 중...' : '전통주 추천 받기'}
-        </button>
-      </form>
+          </button>
+        </form>
+      )}
     </div>
   );
 }

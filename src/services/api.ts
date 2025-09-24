@@ -25,7 +25,7 @@ export const getLiquorRecommendations = async (
 
 // GET /liquors/{liquor_id}/pairings
 export const getLiquorPairings = async (liquorId: number): Promise<PairingResponse> => {
-  const response = await api.get(`/liquors/${liquorId}/pairings`);
+  const response = await api.post(`/liquors/${liquorId}/pairings`);
   return response.data;
 };
 

@@ -8,6 +8,7 @@ export interface LiquorRecommendationRequest {
 
 // API Response Types
 export interface LiquorRecommendation {
+  id: number;
   liquorName: string;
   reason: string;
 }
@@ -25,10 +26,8 @@ export interface RecommendationRecord {
   reason: string;
 }
 
-// Extended types for UI state management
-export interface LiquorRecommendationWithId extends LiquorRecommendation {
-  id: number;
-}
+// Extended types for UI state management (now same as LiquorRecommendation since it includes id)
+export type LiquorRecommendationWithId = LiquorRecommendation;
 
 export interface FormData {
   age: number;
