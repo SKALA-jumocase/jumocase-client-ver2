@@ -87,7 +87,7 @@ function RouteComponent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen w-full py-8">
       <div className="mx-auto max-w-6xl px-4">
         <div className="mb-8 text-center">
           <h1 className="mb-2 text-3xl font-bold text-gray-900">전통주 추천 결과</h1>

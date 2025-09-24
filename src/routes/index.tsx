@@ -18,14 +18,14 @@ function RouteComponent() {
     <div className="mx-auto my-8 flex flex-col gap-8">
       {/* 시작하기 버튼 - 기본 정보가 없을 때만 표시 */}
       {!isUserDataComplete && (
-        <div className="text-center py-8">
-          <div className="bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto">
-            <div className="text-4xl mb-4">🍶</div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">전통주 여정을 시작해보세요</h2>
-            <p className="text-gray-600 mb-6">맞춤형 추천을 위해 기본 정보를 입력해주세요</p>
+        <div className="py-8 text-center">
+          <div className="mx-auto max-w-md rounded-2xl bg-white p-8 shadow-lg">
+            <div className="mb-4 text-4xl">🍶</div>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">전통주 여정을 시작해보세요</h2>
+            <p className="mb-6 text-gray-600">맞춤형 추천을 위해 기본 정보를 입력해주세요</p>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+              className="rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
             >
               시작하기
             </button>
@@ -34,7 +34,7 @@ function RouteComponent() {
       )}
 
       {/* 메인 컨텐츠 */}
-      <div className="flex flex-row gap-8">
+      <div className="mt-8 flex flex-row gap-8">
         <TraditionalDrink />
         <Specialty />
         <Region />
